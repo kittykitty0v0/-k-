@@ -135,6 +135,8 @@ function createWeiboPostElement(post) {
   const postEl = document.createElement("div");
   postEl.className = "weibo-post-item";
 
+  postEl.dataset.postId = post.id;
+
   let contentHtml = "";
   if (post.content) {
     contentHtml += `<div class="weibo-post-content">${post.content.replace(/\n/g, "<br>")}</div>`;
@@ -3594,7 +3596,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // --- 5. 处理删除整个帖子 ---
-      const deletePostBtn = target.closest(".weibo-post-delete-btn");
+      const deletePostBtn =
+        target.closest(".weibo-post-delete-btn") ||
+        target.closest(".post-actions-btn");
       if (deletePostBtn && postItem) {
         const confirmed = await showCustomConfirm(
           "删除动态",

@@ -26422,3 +26422,82 @@ input:checked + .slider::after {
 .nurse-btn-copy { background: #5cdbd3; color: white; } /* 蓝绿色 */
 .nurse-btn-clear { background: #fff; color: #ff85c0; border: 1px solid #ff85c0; }
 .nurse-btn-close { background: #ff7875; color: white; }
+/* 系统弹窗容器样式 */
+#notification-bar {
+    position: fixed;
+    top: 20px; /* 距离顶部稍微留点空隙，类似iOS灵动岛下方 */
+    left: 50%;
+    transform: translateX(-50%) translateY(-200%); /* 默认隐藏在屏幕上方 */
+    width: 90%;
+    max-width: 360px;
+    background: rgba(255, 255, 255, 0.95); /* 轻微透明的白色背景 */
+    backdrop-filter: blur(10px); /* 毛玻璃特效 */
+    border-radius: 16px; /* 圆角卡片 */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0,0,0,0.05); /* 柔和的阴影 */
+    z-index: 10000; /* 确保在最顶层 */
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px; /* 头像和文字的间距 */
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); /* 弹性动画 */
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* 弹窗激活时的状态 */
+#notification-bar.visible {
+    transform: translateX(-50%) translateY(0); /* 滑入屏幕 */
+}
+
+/* 弹窗头像样式 */
+#notification-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%; /* 圆形头像 */
+    object-fit: cover; /* 防止图片变形 */
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0; /* 防止被挤压 */
+    background-color: #eee;
+}
+
+/* 弹窗内容区域 */
+#notification-content {
+    flex: 1; /* 占满剩余空间 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* 防止文字溢出 */
+}
+
+/* 名字样式 */
+#notification-content .name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 消息内容样式 */
+#notification-content .message {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* 文字太长显示省略号 */
+}
+
+/* --- 夜间模式适配 (如果有夜间模式的话) --- */
+.dark-mode #notification-bar {
+    background: rgba(30, 30, 30, 0.95);
+    border-color: rgba(255,255,255,0.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+.dark-mode #notification-content .name {
+    color: #f0f0f0;
+}
+.dark-mode #notification-content .message {
+    color: #aaa;
+}
